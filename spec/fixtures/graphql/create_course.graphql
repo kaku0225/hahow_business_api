@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+mutation($input: CreateCourseInput!) {
+  createCourse(input: $input) {
+    course {
+      id
+      name
+      sections { id title units { id title } }
+    }
+    errors
+  }
+}
