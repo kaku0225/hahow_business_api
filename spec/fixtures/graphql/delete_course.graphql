@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+mutation($input: DeleteCourseInput!) {
+  deleteCourse(input: $input) {
+    success
+    errors
+  }
+}

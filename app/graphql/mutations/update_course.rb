@@ -9,7 +9,7 @@ module Mutations
 
     def resolve(course_attributes:)
       attrs = course_attributes.to_h
-      course = Course.find_by(id: attrs.delete("id"))
+      course = Course.find_by(id: attrs.delete(:id))
       return { course: nil, errors: ["Course not found"] } unless course
 
       if course.update(attrs)

@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+mutation($input: UpdateCourseInput!) {
+  updateCourse(input: $input) {
+    course {
+      id
+      name
+      instructor
+      description
+    }
+    errors
+  }
+}

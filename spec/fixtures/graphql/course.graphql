@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+query($id: ID!) {
+  course(id: $id) {
+    id
+    name
+    instructor
+    description
+    sections {
+      id
+      title
+      position
+      units {
+        id
+        title
+        content
+        description
+        position
+      }
+    }
+  }
+}
