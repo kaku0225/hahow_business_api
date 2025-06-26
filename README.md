@@ -101,64 +101,90 @@ bundle exec rspec
 
 ---
 
-## GraphQL 使用範例
+## GraphQL 使用範例(postman Body raw JSON )
+```
+POST https://tranquil-crag-06947-ede123462c54.herokuapp.com/graphql
+```
 
 ### 取得所有課程
 
-```graphql
-query {
-  courses {
-    id
-    name
-    instructor
-    description
-    sections {
-      id
-      title
-      position
-      units {
-        id
-        title
-        content
-        position
+
+```json
+{
+  "query": "query { courses { id name instructor sections { id title units { id }} } }"
+}
+```
+
+### 建立課程
+
+```json
+{
+  "query": "mutation CreateCourse($input: CreateCourseInput!) { createCourse(input: $input) { course { id name instructor } errors } }",
+  "variables": {
+    "input": {
+      "courseAttributes": {
+        "name":        "Course C",
+        "instructor":  "Instructor C",
+        "description": "Desc C",
+        "sectionsAttributes": [
+          {
+            "title":    "Section C1",
+            "position": 1,
+            "unitsAttributes": [
+              {
+                "title":       "Unit C1",
+                "description": "Desc C1",
+                "content":     "Content C1",
+                "position":    1
+              }
+            ]
+          }
+        ]
       }
     }
   }
 }
 ```
 
-### 建立課程
-
-```graphql
-mutation($input: CreateCourseInput!) {
-  createCourse(input: $input) {
-    course {
-      id
-      name
-      sections { id title units { id title } }
+### 更新課程
+```json
+{
+  "query": "mutation UpdateCourse($input: UpdateCourseInput!) { updateCourse(input: $input) { course { id name instructor description sections { id title position units { id title description content position } } } errors } }",
+  "variables": {
+    "input": {
+      "courseAttributes": {
+        "id":          "1",
+        "name":        "Course A (Updated)",
+        "instructor":  "Instructor A (U)",
+        "description": "Desc A (U)",
+        "sectionsAttributes": [
+          {
+            "id":       "1",
+            "title":    "Section A1 (U)",
+            "position": 1,
+            "unitsAttributes": [
+              {
+                "id":          "100",
+                "title":       "Unit A1 (U)",
+                "description": "Desc A1 (U)",
+                "content":     "Content A1 (U)",
+                "position":    1
+              }
+            ]
+          }
+        ]
+      }
     }
-    errors
   }
 }
 ```
 
-變數範例:
-
+### 刪除課程
 ```json
 {
-  "input": {
-    "courseAttributes": {
-      "name": "GraphQL 實戰",
-      "instructor": "Eason",
-      "sectionsAttributes": [
-        {
-          "title": "Intro",
-          "unitsAttributes": [
-            { "title": "What is GraphQL", "content": "GraphQL 是…" }
-          ]
-        }
-      ]
-    }
+  "query": "mutation DeleteCourse($id: ID!) { deleteCourse(input: { id: $id }) { success errors } }",
+  "variables": {
+    "id": "2"
   }
 }
 ```
@@ -178,7 +204,7 @@ mutation($input: CreateCourseInput!) {
 ## 註解原則
 
 1. **商業邏輯**：複雜的 nested attribute 處理、排序邏輯需加註解。
-2. **公共 Interface**：GraphQL Resolver、Mutation 有說明參數用途。
+2. **公共 Interface**：後續可在 GraphQL Resolver、Mutation 加入說明參數用途。
 
 ---
 
@@ -194,7 +220,7 @@ mutation($input: CreateCourseInput!) {
 ## 開發中遇到的困難與解法
 
 1. **GraphQL Input 包裝**：Mutation 必須用 `input` 參數，Fixture 需改成 `CreateCourseInput`。
-2. **Hash Key 類型差異**：在 `resolve` 裡同時處理 Symbol / String key (`attrs.delete(:id) || attrs.delete('id')`)。
+2. **dataloader 的運用**：使用::ActiveRecord::Associations::Preloader，讓資料不用一開始就includes。
 
 ---
 
