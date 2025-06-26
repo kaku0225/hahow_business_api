@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class HahowBusinessApiSchema < GraphQL::Schema
+  use GraphQL::Dataloader
   mutation(Types::MutationType)
   query(Types::QueryType)
 

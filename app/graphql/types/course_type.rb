@@ -9,7 +9,7 @@ module Types
     field :sections, [Types::SectionType], null: false, description: "List of all sections under this course"
 
     def sections
-      dataloader.with(AssociationLoader, Course, :sections).load(object)
+      dataloader.with(Loaders::AssociationLoader, Course, :sections).load(object)
     end
   end
 end

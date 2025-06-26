@@ -8,7 +8,7 @@ module Types
     field :units, [Types::UnitType], null: false, description: "List of all units under this section"
 
     def units
-      dataloader.with(AssociationLoader, Section, :units).load(object)
+      dataloader.with(Loaders::AssociationLoader, Section, :units).load(object)
     end
   end
 end
