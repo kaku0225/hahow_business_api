@@ -10,8 +10,8 @@ module Loaders
     end
   
     def fetch(records)
-      ::ActiveRecord::Associations::Preloader.new.preload(records, @assoc_name)
-      records.map { |record| record.public_send(@association_name) }
+      ::ActiveRecord::Associations::Preloader.new(records: Array(records), associations: @assoc_name).call
+      records.map { |record| record.public_send(@assoc_name) }
     end
   end
 end
