@@ -7,7 +7,7 @@ module Types
       argument :name, String, required: true
       argument :instructor, String, required: true
       argument :description, String, required: false
-      argument :sections_attributes, [Types::Inputs::SectionInputType], required: false
+      argument :sections_attributes, [ Types::Inputs::SectionInputType ], required: false
     end
   end
 end

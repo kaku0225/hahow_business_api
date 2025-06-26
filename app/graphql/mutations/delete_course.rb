@@ -5,11 +5,11 @@ module Mutations
     argument :id, ID, required: true
 
     field :success, Boolean, null: false
-    field :errors, [String], null: false
+    field :errors, [ String ], null: false
 
     def resolve(id:)
       course = Course.find_by(id: id)
-      return { success: false, errors: ["Course not found"] } unless course
+      return { success: false, errors: [ "Course not found" ] } unless course
 
       if course.destroy
         { success: true, errors: [] }

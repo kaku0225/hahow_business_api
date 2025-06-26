@@ -5,7 +5,7 @@ module Mutations
     argument :course_attributes, Types::Inputs::CourseInputType, required: true
 
     field :course, Types::CourseType, null: true
-    field :errors, [String], null: false
+    field :errors, [ String ], null: false
 
     def resolve(course_attributes:)
       course = Course.new(course_attributes.to_h)

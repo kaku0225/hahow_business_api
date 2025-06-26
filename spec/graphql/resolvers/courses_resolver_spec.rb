@@ -18,7 +18,7 @@ RSpec.describe Resolvers::CoursesResolver, type: :resolver do
       resolver = described_class.new(object: nil, context: ctx, field: field)
       result   = resolver.resolve
 
-      expect(result).to match_array([c])
+      expect(result).to match_array([ c ])
       course_obj = result.first
       expect(course_obj.sections).not_to be_empty
       section = course_obj.sections.first

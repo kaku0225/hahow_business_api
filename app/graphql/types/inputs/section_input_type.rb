@@ -7,7 +7,7 @@ module Types
       argument :title, String, required: true
       argument :position, Integer, required: false, default_value: nil
       argument :_destroy, Boolean, required: false
-      argument :units_attributes, [Types::Inputs::UnitInputType], required: false
+      argument :units_attributes, [ Types::Inputs::UnitInputType ], required: false
     end
   end
 end

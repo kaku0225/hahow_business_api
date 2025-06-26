@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Loaders
   class AssociationLoader < GraphQL::Dataloader::Source
     # model is the ActiveRecord class (e.g. Section),
@@ -8,7 +9,7 @@ module Loaders
       @model        = model
       @assoc_name   = assoc_name
     end
-  
+
     def fetch(records)
       ::ActiveRecord::Associations::Preloader.new(records: Array(records), associations: @assoc_name).call
       records.map { |record| record.public_send(@assoc_name) }

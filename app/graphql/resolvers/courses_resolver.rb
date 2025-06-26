@@ -2,7 +2,7 @@
 
 module Resolvers
   class CoursesResolver < Resolvers::BaseResolver
-    type [Types::CourseType], null: false
+    type [ Types::CourseType ], null: false
 
     def resolve
       Course.order(:id)
