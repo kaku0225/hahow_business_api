@@ -7,5 +7,10 @@ module Types
     field :instructor, String, null: false
     field :description, String, null: true
     field :sections, [Types::SectionType], null: false, description: "List of all sections under this course"
+
+    def sections
+      # AssociationLoader 是 graphql-batch/自定义的 loader
+      dataloader.with(AssociationLoader, Course, :sections).load(object)
+    end
   end
 end

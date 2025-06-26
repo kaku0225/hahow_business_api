@@ -5,7 +5,7 @@ module Resolvers
     type [Types::CourseType], null: false
 
     def resolve
-      Course.includes(sections: :units).all
+      Course.order(:id)
     end
   end
 end
