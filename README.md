@@ -178,8 +178,7 @@ mutation($input: CreateCourseInput!) {
 ## 註解原則
 
 1. **商業邏輯**：複雜的 nested attribute 處理、排序邏輯需加註解。
-2. **公共 Interface**：GraphQL Resolver、Mutation 一定要有說明參數用途。
-3. **避免冗贅**：不在自說明方法或 Rails convention (e.g. `belongs_to`) 上重複註解。
+2. **公共 Interface**：GraphQL Resolver、Mutation 有說明參數用途。
 
 ---
 
@@ -194,10 +193,8 @@ mutation($input: CreateCourseInput!) {
 
 ## 開發中遇到的困難與解法
 
-1. **API-only CSRF 問題**：Rails API 模式無 `protect_from_forgery`；測試時使用 `as: :json` 及正確 `Content-Type`。
-2. **GraphQL Input 包裝**：Mutation 必須用 `input` 參數，Fixture 需改成 `CreateCourseInput`。
-3. **acts\_as\_list 沒被載入**：確認 Gemfile 不在 test group，並重啟 Spring。
-4. **Hash Key 類型差異**：在 `resolve` 裡同時處理 Symbol / String key (`attrs.delete(:id) || attrs.delete('id')`)。
+1. **GraphQL Input 包裝**：Mutation 必須用 `input` 參數，Fixture 需改成 `CreateCourseInput`。
+2. **Hash Key 類型差異**：在 `resolve` 裡同時處理 Symbol / String key (`attrs.delete(:id) || attrs.delete('id')`)。
 
 ---
 
